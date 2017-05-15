@@ -15,8 +15,7 @@ RUN apt-get -y update && \
     C_ALL=C DEBIAN_FRONTEND=noninteractive apt-get -y install \
     apache2 \
     python-software-properties software-properties-common \
-    php7.1 php7.1-cli php7.1-common \
-    php7.1-curl php7.1-gd php7.1-intl php7.1-json php7.1-ldap php7.1-mbstring php7.1-mcrypt php7.1-mysql php7.1-opcache php7.1-xml php7.1-xmlrpc php7.1-xsl php7.1-zip php-memcach && \
+    libapache2-mod-php7.1 php7.1 php7.1-cli php7.1-common php7.1-curl php7.1-gd php7.1-intl php7.1-json php7.1-ldap php7.1-mbstring php7.1-mcrypt php7.1-mysql php7.1-opcache php7.1-xml php7.1-xmlrpc php7.1-xsl php7.1-zip php7.1-readline php-memcache php-memcached && \
     apt-get clean && rm -r /var/lib/apt/lists/*
 
 # Configure apache module
@@ -28,8 +27,8 @@ RUN a2dismod mpm_event && \
 
 #RUN rm -rf /etc/apache2/sites-available/000-default.conf 
 COPY 000-default.conf /etc/apache2/sites-available/
-COPY php.ini /etc/php5/apache2/
-COPY memcached.ini /etc/php5/mods-available/
+COPY php.ini /etc/php/7.1/apache2/
+COPY memcached.ini /etc/php/7.1/apache2/conf.d/20-memcache.ini
 
 WORKDIR /var/www/html
 

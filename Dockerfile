@@ -21,12 +21,14 @@ RUN apt-get -y update && \
 # Configure apache module
 RUN a2dismod mpm_event && \
     a2enmod mpm_prefork \
+            ssl \
             rewrite && \
     ln -sf /dev/stdout /var/log/apache2/access.log && \
     ln -sf /dev/stderr /var/log/apache2/error.log
 
 #RUN rm -rf /etc/apache2/sites-available/000-default.conf 
 COPY 000-default.conf /etc/apache2/sites-available/
+COPY default-ssl.conf /etc/apache2/sites-available/
 COPY php.ini /etc/php/7.1/apache2/
 COPY memcached.ini /etc/php/7.1/apache2/conf.d/20-memcache.ini
 

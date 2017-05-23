@@ -21,7 +21,7 @@ RUN apt-get -y update && \
 # Configure apache module
 RUN a2dismod mpm_event && \
     a2enmod mpm_prefork \
-            ssl \
+            ssl proxy proxy_http headers \
             rewrite && \
     ln -sf /dev/stdout /var/log/apache2/access.log && \
     ln -sf /dev/stderr /var/log/apache2/error.log
